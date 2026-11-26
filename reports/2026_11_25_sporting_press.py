@@ -9,6 +9,7 @@ META = {
     "date_label": "25 Nov 2026",
     "fixture": "Sporting 2-2 Man United",
     "club": CLUB,
+    "share_image": "poster.png",  # lives in site/sporting-press/
     "title": "How Man United won the ball back at Sporting",
     "summary": "United won the ball higher up the pitch than in any game this season, in Pochettino's second match. Then the press stopped at 67 minutes.",
 }
@@ -169,7 +170,7 @@ def body():
 <tr><td>Times they won the ball back</td><td class="n us">63</td><td class="n">66</td></tr>
 <tr><td>Won in the final third</td><td class="n us">17</td><td class="n">3</td></tr>
 <tr><td>Won in the final 40% of the pitch</td><td class="n us">24</td><td class="n">5</td></tr>
-<tr><td>Average spot they won it (0 = own goal line, 100 = opponent's)</td><td class="n us">51</td><td class="n">32</td></tr>
+<tr><td>Average spot they won it, metres from their own goal line</td><td class="n us">54 m</td><td class="n">33 m</td></tr>
 <tr><td>Opponent passes allowed per challenge in their build-up (lower = harder press)</td><td class="n us">12.6</td><td class="n">14.4</td></tr>
 </tbody></table></div>
 <p class="note">"Won the ball back" here means a ball recovery, an interception or a tackle won, from Opta's event data (via WhoScored).</p>
@@ -222,7 +223,7 @@ def body():
 <figure><p class="fig-title">United won the ball higher at Sporting than in any game this season</p>
 <p class="fig-sub">Average spot of each regain, metres from United's own goal line</p>
 {season_chart()}
-<figcaption>Opta event data via WhoScored · 15 United matches this season (Como away not available) plus Sporting · regains = recoveries, interceptions, tackles won</figcaption></figure>
+<figcaption>Opta event data via WhoScored · 16 United matches this season, Sporting included (Como away not available) · regains = recoveries, interceptions, tackles won</figcaption></figure>
 <div class="col">
 <div class="scroll"><table>
 <thead><tr><th>Measure</th><th>Sporting</th><th>Carrick average (14 games)</th><th>Carrick's best</th></tr></thead><tbody>

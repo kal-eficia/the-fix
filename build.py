@@ -8,6 +8,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+BASE = "https://kal-eficia.github.io/the-fix/"
 SITE = ROOT / "site"
 
 PAPER, SHADE, INK, SOFT, SIGNAL, FIX = "#E8E4DA", "#DCD7CB", "#121212", "#6E6A62", "#FF5A1F", "#1F8A5B"
@@ -107,7 +108,7 @@ footer img{height:44px}footer a{color:var(--paper)}footer p{margin:0;max-width:6
 """
 
 
-def page(title, desc, body, depth, club):
+def page(title, desc, body, depth, club, path="", image=None):
     assets = "../" * depth + "assets"
     home = "../" * depth or "./"
     css = CSS.replace("ASSETS", assets).replace("--club:#C8102E", f"--club:{club}")
@@ -115,7 +116,10 @@ def page(title, desc, body, depth, club):
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}">
 <meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
-<meta property="og:image" content="{assets}/logo/avatar-signal.png"><meta name="theme-color" content="#121212">
+<meta property="og:type" content="article"><meta property="og:url" content="{BASE}{path}"><meta property="og:site_name" content="The Fix">
+<meta property="og:image" content="{image or BASE + 'assets/logo/avatar-signal.png'}">
+<meta name="twitter:card" content="{'summary_large_image' if image else 'summary'}"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{image or BASE + 'assets/logo/avatar-signal.png'}"><meta name="theme-color" content="#121212">
 <link rel="icon" href="{assets}/logo/mark.svg" type="image/svg+xml">
 <link rel="preload" href="{assets}/fonts/Archivo-VF.woff2" as="font" type="font/woff2" crossorigin>
 <style>{css}</style></head><body>
@@ -146,7 +150,8 @@ def build():
         m = r.META
         d = SITE / m["slug"]
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(page(m["title"] + " | The Fix", m["summary"], r.body(), 1, m["club"]), encoding="utf-8")
+        (d / "index.html").write_text(page(m["title"] + " | The Fix", m["summary"], r.body(), 1, m["club"], m["slug"] + "/",
+                 BASE + m["slug"] + "/" + m["share_image"] if m.get("share_image") else None), encoding="utf-8")
     cards = "".join(
         f'<a class="card" href="{r.META["slug"]}/"><span class="label">{r.META["date_label"]}<br>{r.META["fixture"]}</span>'
         f'<div><h3 class="head">{r.META["title"]}</h3><p>{r.META["summary"]}</p></div></a>' for r in reports)
