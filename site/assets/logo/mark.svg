@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+<title>The Fix</title>
+<defs><mask id="ko"><rect width="1000" height="1000" fill="#fff"/>
+<polyline points="500,640 586,724 836,400" fill="none" stroke="#000" stroke-width="130" stroke-linecap="round" stroke-linejoin="round"/></mask></defs>
+<g fill="#121212" mask="url(#ko)">
+<path fill-rule="evenodd" d="M500 60a440 440 0 1 0 0.01 0zM500 134a366 366 0 1 1 -0.01 0z"/>
+<rect x="276" y="250" width="128" height="500"/><rect x="276" y="250" width="388" height="116"/><rect x="276" y="446" width="320" height="106"/></g>
+<polyline points="500,640 586,724 836,400" fill="none" stroke="#FF5A1F" stroke-width="86" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
