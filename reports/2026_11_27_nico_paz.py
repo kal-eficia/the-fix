@@ -40,6 +40,9 @@ EXTRA_CSS = f"""<style>
 .verdict div{{padding:16px 16px 6px 0}}.verdict div+div{{padding-left:16px;border-left:1px solid var(--ink)}}
 .verdict b{{display:block;font:900 22px/1.05 var(--head);font-variation-settings:"wdth" 112;text-transform:uppercase}}
 @media (max-width:700px){{.verdict{{grid-template-columns:1fr}}.verdict div+div{{padding-left:0;border-left:none;border-top:1px solid var(--ink)}}}}
+#tip{{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--paper);font:600 13px/1.35 var(--mono);padding:8px 10px;max-width:260px;opacity:0;transition:opacity .12s}}
+#tip.on{{opacity:1}}
+svg .tip,svg circle:has(title),svg g:has(title){{cursor:pointer}}
 </style>"""
 
 
@@ -79,7 +82,7 @@ def body():
 <div class="col"><div class="part-head"><span class="no">03</span><h2 class="head">You know it's coming</h2></div>
 <p>His move: pick it up in that pocket on the right, shift it inside onto the left foot, and either bend it towards the far post or slip it through for a runner. Everyone in the ground knows it's coming.</p></div>
 <figure><p class="fig-title">3 of his 5 goals from outside the box last season came from right of centre</p>
-<p class="fig-sub">Board: an illustration of the typical pattern. Black squares: his real 2025/26 Serie A goals from outside the box (hover for detail).</p>
+<p class="fig-sub">Board: an illustration of the typical pattern. Black squares: his real 2025/26 Serie A goals from outside the box (hover or tap for detail).</p>
 {svg("board.svg")}
 <figcaption>Goal locations: FotMob shot data, Serie A 2025/26. The arrows are an illustration drawn from his touch and shot maps, not tracking data of a single goal.</figcaption></figure>
 </div></section>
@@ -88,7 +91,7 @@ def body():
 <div class="col"><div class="part-head"><span class="no">04</span><h2 class="head">He does both jobs</h2></div>
 <p>This is the one that makes him different. Most 10s either beat a man or win the ball. Paz does both, and he did it over a full season.</p></div>
 <figure><p class="fig-title">Every Serie A attacking midfielder, 2025/26: tackles against dribbles</p>
-<p class="fig-sub">Bigger dot = more minutes. Hover any dot for the player and both numbers. Dashed lines: the middle of the 22.</p>
+<p class="fig-sub">Bigger dot = more minutes. Hover or tap any dot for the player and both numbers. Dashed lines: the middle of the 22.</p>
 {svg("scatter.svg")}
 <figcaption>FotMob league stats, Serie A 2025/26, filtered to attacking midfielders (22 players). Minutes are approximate: total tackles divided by tackles per 90.</figcaption></figure>
 <div class="col"><ul>
@@ -102,7 +105,7 @@ def body():
 <div class="col"><div class="part-head"><span class="no">05</span><h2 class="head">Where he ranks</h2></div>
 <p>Each line below is all 22 Serie A attacking midfielders last season. Elite at two things, middle of the pack at one, and we'll say so.</p></div>
 <figure>{svg("strips.svg")}
-<figcaption>FotMob league stats, Serie A 2025/26, attacking midfielders. Grey dots: the other 21 (hover for names). Stacked dots share a value.</figcaption></figure>
+<figcaption>FotMob league stats, Serie A 2025/26, attacking midfielders. Grey dots: the other 21 (hover or tap for names). Stacked dots share a value.</figcaption></figure>
 <div class="col"><div class="scroll"><table>
 <thead><tr><th>Tackles per 90, attacking midfielders</th><th>Per 90</th><th>Total</th></tr></thead><tbody>
 <tr><td><b>Nico Paz</b></td><td class="n us">2.8</td><td class="n us">91</td></tr>
@@ -119,7 +122,7 @@ def body():
 <div class="col"><div class="part-head"><span class="no">06</span><h2 class="head">How he shoots</h2></div>
 <p>He shoots on sight. A lot of it is from range, and that drags his chance quality down, but when he hits the target he hits it clean. His shots on target were worth more than the chances they came from in both seasons, and his free kicks are a weapon.</p></div>
 <div class="two">{svg("shots-2526.svg")}{svg("shots-2627.svg")}</div>
-<p class="fig-sub">Circle size = chance quality (xG). Orange = goal. Penalties left off. Hover any shot.</p>
+<p class="fig-sub">Circle size = chance quality (xG). Orange = goal. Penalties left off. Hover or tap any shot.</p>
 <div class="col"><div class="scroll"><table>
 <thead><tr><th>Serie A</th><th>2025/26</th><th>2026/27</th></tr></thead><tbody>
 <tr><td>Shots</td><td class="n">121</td><td class="n">48</td></tr>
@@ -179,4 +182,25 @@ def body():
 <li><b>What we didn't have:</b> video, tracking data and possession-value models (OBV, xT). The tactics board is an illustration of a pattern seen in his maps, not a reconstruction of one goal.</li>
 </ul>
 </div></div></section>
+<div id="tip" role="status" aria-live="polite"></div>
+<script>
+(function(){{
+  var tip=document.getElementById('tip');
+  var els=document.querySelectorAll('svg title');
+  function show(t,x,y){{tip.textContent=t;tip.classList.add('on');
+    var w=tip.offsetWidth,h=tip.offsetHeight;var L=Math.min(window.innerWidth-w-8,x+14),T=y-h-14;if(T<8)T=y+18;
+    tip.style.left=L+'px';tip.style.top=T+'px';}}
+  function hide(){{tip.classList.remove('on');}}
+  els.forEach(function(ti){{
+    var el=ti.parentNode,txt=ti.textContent;el.setAttribute('data-tip',txt);el.setAttribute('tabindex','0');el.setAttribute('aria-label',txt);ti.remove();
+    el.addEventListener('pointerenter',function(e){{show(txt,e.clientX,e.clientY);}});
+    el.addEventListener('pointermove',function(e){{show(txt,e.clientX,e.clientY);}});
+    el.addEventListener('pointerleave',hide);
+    el.addEventListener('click',function(e){{show(txt,e.clientX,e.clientY);e.stopPropagation();}});
+    el.addEventListener('focus',function(){{var r=el.getBoundingClientRect();show(txt,r.right,r.top);}});
+    el.addEventListener('blur',hide);
+  }});
+  document.addEventListener('click',hide);window.addEventListener('scroll',hide,{{passive:true}});
+}})();
+</script>
 """
