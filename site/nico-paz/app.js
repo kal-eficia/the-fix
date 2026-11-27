@@ -185,9 +185,10 @@
       t.classList.add("in");
       if (t.matches(".score")) t.querySelectorAll("[data-count]").forEach(countUp);
       if (t === board) playMove();
+      if (t.matches(".tape")) t.classList.add("on");
     });
   }, { threshold: 0.35 });
-  document.querySelectorAll(".score, .touch, .strips").forEach(function (n) { io.observe(n); });
+  document.querySelectorAll(".score, .touch, .strips, .tape").forEach(function (n) { io.observe(n); });
   if (board) io.observe(board);
 
   /* ---------- 5. compare picker ---------- */

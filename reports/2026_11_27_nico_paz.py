@@ -66,6 +66,13 @@ EXTRA_CSS = f"""<style>
 .hero-grid{{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(16px,3vw,40px);align-items:center}}
 .hero-img{{width:100%;height:auto;display:block;mix-blend-mode:multiply}}
 @media (max-width:760px){{.hero-grid{{grid-template-columns:1fr}}.hero-img{{max-width:420px;margin:0 auto;order:-1}}}}
+.tape{{margin-top:clamp(28px,4vw,48px)}}
+.js .tape .draw{{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)}}
+.js .tape .d2{{transition-delay:1.3s;transition-duration:.6s}}
+.js .tape .head,.js .tape .endball{{opacity:0;transition:opacity .3s 1.5s}}
+.js .tape .step{{opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*.45s)}}
+.js .tape.on .draw{{stroke-dashoffset:0}}.js .tape.on .head,.js .tape.on .endball,.js .tape.on .step{{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){{.js .tape .draw{{stroke-dashoffset:0;transition:none}}.js .tape .head,.js .tape .endball,.js .tape .step{{opacity:1;transform:none;transition:none}}}}
 #tip{{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--paper);font:600 13px/1.35 var(--mono);padding:8px 10px;max-width:260px;opacity:0;transition:opacity .12s}}
 #tip.on{{opacity:1}}
 svg .tip,svg circle:has(title),svg g:has(title){{cursor:pointer}}
@@ -117,7 +124,21 @@ def body():
 </div></section>
 
 <section class="part"><div class="wrap">
-<div class="col"><div class="part-head"><span class="no">04</span><h2 class="head">He does both jobs</h2></div>
+<div class="col"><div class="part-head"><span class="no">04</span><h2 class="head">What the tape shows</h2></div>
+<p>Numbers tell you how often. Tape tells you how. We went through his first half against United (Champions League, 21 Oct 2026) frame by frame, and two moments say a lot about him.</p></div>
+<figure class="tape"><p class="fig-title">19': United lose it at his end. Eleven seconds later he's past halfway</p>
+<p class="fig-sub">United's attack breaks down on the edge of Como's box. Paz picks up the loose ball on the right and just goes, pushing it with his left, with a United player chasing all the way and never getting in front. About 40 metres, and Como go from defending to attacking.</p>
+{svg("tape-carry.svg")}
+<p class="note">He doesn't beat a man here, so it won't show up as a dribble. No public stat counts a carry like this, which is exactly why you watch the tape.</p></figure>
+<figure class="tape"><p class="fig-title">39': Cunha gets tight. Cunha ends up on the floor</p>
+<p class="fig-sub">On the corner of United's box with Cunha on his back. Low, arm out, body between man and ball, and he rolls him. Cunha goes down, Paz plays on, and Bruno has to come across.</p>
+{svg("tape-duel.svg")}
+<p class="note">This is the strength the duel numbers hint at but can't prove, because "duels won" counts tackles and dribbles too.</p>
+<figcaption>Both boards are drawn from the broadcast of Como v United, Champions League, 21 Oct 2026, first half. Times are the match clock. Positions are approximate: a board of what the camera shows, not tracking data. Two moments from one half aren't a pattern on their own; they're here because they match what two seasons of numbers say he does.</figcaption></figure>
+</div></section>
+
+<section class="part"><div class="wrap">
+<div class="col"><div class="part-head"><span class="no">05</span><h2 class="head">He does both jobs</h2></div>
 <p>This is the one that makes him different. Most 10s either beat a man or win the ball. Paz does both, and he did it over a full season.</p></div>
 <figure><p class="fig-title">Every Serie A attacking midfielder, 2025/26</p>
 <p class="fig-sub">Play with it. Drag the minutes slider to 1,000 and watch who's left in the corner. Swap what's on each axis, or pick a player to compare. Bigger dot = more minutes.</p>
@@ -141,7 +162,7 @@ def body():
 </div></section>
 
 <section class="part"><div class="wrap">
-<div class="col"><div class="part-head"><span class="no">05</span><h2 class="head">Where he ranks</h2></div>
+<div class="col"><div class="part-head"><span class="no">06</span><h2 class="head">Where he ranks</h2></div>
 <p>Each line below is all 22 Serie A attacking midfielders last season. Elite at two things, middle of the pack at one, and we'll say so.</p></div>
 <div class="ctrl"><label>Compare with <select class="compare"><option value="">nobody</option></select></label></div>
 <figure class="strips">{svg("strips.svg")}
@@ -159,7 +180,7 @@ def body():
 </div></section>
 
 <section class="part"><div class="wrap">
-<div class="col"><div class="part-head"><span class="no">06</span><h2 class="head">How he shoots</h2></div>
+<div class="col"><div class="part-head"><span class="no">07</span><h2 class="head">How he shoots</h2></div>
 <p>He shoots on sight. A lot of it is from range, and that drags his chance quality down, but when he hits the target he hits it clean. His shots on target were worth more than the chances they came from in both seasons, and his free kicks are a weapon.</p></div>
 <div id="shotLab" class="lab">
 <div class="ctrl btns">
@@ -189,7 +210,7 @@ def body():
 </div></section>
 
 <section class="part"><div class="wrap"><div class="col">
-<div class="part-head"><span class="no">07</span><h2 class="head">What his manager says</h2></div>
+<div class="part-head"><span class="no">08</span><h2 class="head">What his manager says</h2></div>
 <p>Fàbregas built Como's attack around him, and you can hear it in how he talks about him.</p>
 <div class="quote"><q>He's our brand.</q><p>On why Como wanted to keep him for many years.</p><span class="label">Fàbregas, press conference, January 2025, <a href="https://prod.beinsports.com/en-us/soccer/serie-a/articles-video/f%C3%A0bregas-secures-nico-paz-s-future-except-for-real-madrid-2025-01-18">via beIN Sports</a></span></div>
 <div class="quote"><q>He trusts me and I trust him.</q><p>After the season that took Como into the Champions League.</p><span class="label">Fàbregas, May 2026, <a href="https://www.tuttomercatoweb.com/serie-a/fabregas-sul-suo-futuro-a-volte-si-parla-troppo-nico-paz-mi-fido-di-lui-e-lui-si-fida-di-me-2239893">via TuttoMercatoWeb</a></span></div>
@@ -197,7 +218,7 @@ def body():
 </div></div></section>
 
 <section class="part fixpanel"><div class="wrap"><div class="col">
-<div class="part-head"><span class="no">08</span><h2 class="head">What's still raw</h2><span class="label">The honest bit</span></div>
+<div class="part-head"><span class="no">09</span><h2 class="head">What's still raw</h2><span class="label">The honest bit</span></div>
 <p class="human">Nobody's the finished article at 22. These are the parts to watch.</p>
 <ul>
 <li><b>Shot choice.</b> 60% of last season's shots came from outside the box at about 0.06 xG each. It's improving, but it's the clearest thing to coach.</li>
@@ -209,7 +230,7 @@ def body():
 </div></div></section>
 
 <section class="part"><div class="wrap"><div class="col">
-<div class="part-head"><span class="no">09</span><h2 class="head">A 10 for a decade</h2></div>
+<div class="part-head"><span class="no">10</span><h2 class="head">A 10 for a decade</h2></div>
 <p>He's 22, already a starter in a Champions League side (33 league starts last season), and the bits he's elite at have held for two seasons. Get him in now and that's your 10 for the best part of ten years.</p>
 <div class="tiles">{"".join(f"<div><span>{27 + k}/{28 + k}</span><b>{22 + k}</b></div>" for k in range(10))}</div>
 <p class="note">His age at the start of each season.</p>
@@ -217,7 +238,7 @@ def body():
 </div></div></section>
 
 <section class="part"><div class="wrap"><div class="col">
-<div class="part-head"><span class="no">10</span><h2 class="head">Method and sources</h2></div>
+<div class="part-head"><span class="no">11</span><h2 class="head">Method and sources</h2></div>
 <ul>
 <li><b>Player data:</b> <a href="https://www.fotmob.com/players/1347574/nico-paz">FotMob</a> season pages for Serie A 2025/26 and 2026/27 (to 27 Nov): touches, shots, xG, xGOT, tackles, dribbles, recoveries. Touch and shot maps are drawn from FotMob's location data.</li>
 <li><b>Positional comparison:</b> FotMob league stats for Serie A 2025/26 filtered to attacking midfielders (22 qualifying players): <a href="https://www.fotmob.com/leagues/55/stats/season/27044/players/total_tackle/serie?position=attackingMidfielder">tackles</a>, <a href="https://www.fotmob.com/leagues/55/stats/season/27044/players/won_contest/serie?position=attackingMidfielder">dribbles</a>, <a href="https://www.fotmob.com/leagues/55/stats/season/27044/players/poss_won_att_3rd/serie?position=attackingMidfielder">ball won in the final third</a>.</li>
@@ -226,7 +247,8 @@ def body():
 <li><b>What the stats count:</b> "duels won" is left out because it double-counts tackles and dribbles. Tackle counts depend on how often a team is without the ball, so possession is discussed alongside them.</li>
 <li><b>Role and style:</b> <a href="https://www.hudl.com/blog/nico-paz-como-statsbomb">Hudl StatsBomb on his inverted role</a>; <a href="https://tacticalfootballanalysis.com/como-2026-2027-cesc-fabregas-tactical-data-analysis-tactics/">Como's 2026/27 shape</a>.</li>
 <li><b>News:</b> Bruno's contract option and United's interest in Paz as reported by The Athletic, 27 Nov 2026. Real Madrid's buy-back: club statement, June 2026; price as reported.</li>
-<li><b>What we didn't have:</b> video, tracking data and possession-value models (OBV, xT). The tactics board is an illustration of a pattern seen in his maps, not a reconstruction of one goal.</li>
+<li><b>Video:</b> the broadcast first half of Como v United (21 Oct 2026), cut to his involvements, checked frame by frame against the match clock. Paz identified by his number and, where shown, the name on his shirt.</li>
+<li><b>What we didn't have:</b> full-match video, tracking data and possession-value models (OBV, xT). The "You know it's coming" board is an illustration of a pattern seen in his maps, not a reconstruction of one goal.</li>
 </ul>
 </div></div></section>
 <div id="tip" role="status" aria-live="polite"></div>
