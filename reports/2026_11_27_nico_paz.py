@@ -116,7 +116,7 @@ def body():
 <section class="part"><div class="wrap">
 <div class="col"><div class="part-head"><span class="no">03</span><h2 class="head">You know it's coming</h2></div>
 <p>His move: pick it up in that pocket on the right, shift it inside onto the left foot, and either bend it towards the far post or slip it through for a runner. Everyone in the ground knows it's coming.</p></div>
-<figure><p class="fig-title">3 of his 5 goals from outside the box last season came from right of centre</p>
+<figure><p class="fig-title">All 5 of his goals from outside the box last season came from within 10 metres of the middle, where the cut inside takes him</p>
 <p class="fig-sub">Board: an illustration of the typical pattern. Black squares: his real 2025/26 Serie A goals from outside the box (hover or tap for detail).</p>
 {svg("board.svg")}
 <button id="replay" class="btn" type="button">Replay the move</button>
