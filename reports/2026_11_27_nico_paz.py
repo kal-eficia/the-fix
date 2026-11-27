@@ -40,6 +40,32 @@ EXTRA_CSS = f"""<style>
 .verdict div{{padding:16px 16px 6px 0}}.verdict div+div{{padding-left:16px;border-left:1px solid var(--ink)}}
 .verdict b{{display:block;font:900 22px/1.05 var(--head);font-variation-settings:"wdth" 112;text-transform:uppercase}}
 @media (max-width:700px){{.verdict{{grid-template-columns:1fr}}.verdict div+div{{padding-left:0;border-left:none;border-top:1px solid var(--ink)}}}}
+.lab .ctrl,.ctrl{{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:18px 0 8px;font:600 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase}}
+.ctrl select{{font:600 13px var(--mono);background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:6px 8px;margin-left:6px}}
+.ctrl .rng{{display:flex;align-items:center;gap:8px}}.ctrl input[type=range]{{accent-color:var(--signal);width:170px}}
+.ctrl output{{min-width:120px;color:var(--signal)}}
+.lab .count{{color:var(--soft);margin:6px 0 0}}
+.lab .chart svg,.maps svg{{width:100%;height:auto;display:block}}
+.maps{{max-width:640px;margin:10px auto 0}}
+.btns .grp{{display:inline-flex;border:2px solid var(--ink)}}.btns button{{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:0;padding:9px 12px;cursor:pointer}}
+.btns button+button{{border-left:2px solid var(--ink)}}.btns button[aria-pressed=true]{{background:var(--ink);color:var(--paper)}}
+.btn{{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:0;padding:10px 14px;margin:12px 0 0;cursor:pointer}}
+.pt{{transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .4s}}.pt.off{{opacity:.06;pointer-events:none}}
+.pt .nmlab{{font:500 13px var(--mono);fill:var(--soft);opacity:0;transition:opacity .3s}}.pt.cmp .nmlab{{opacity:1;fill:var(--ink);font-weight:800}}
+.pt.cmp circle{{fill:var(--ink);fill-opacity:1}}
+.pazlab{{font:900 34px var(--head);font-variation-settings:"wdth" 110;fill:var(--ink)}}
+.tick{{font:13px var(--mono);fill:var(--soft)}}.axl{{font:700 14px var(--mono);letter-spacing:.14em;fill:var(--ink)}}.ql{{font:700 13px var(--mono);letter-spacing:.12em;fill:var(--signal)}}
+.shot{{transition:opacity .3s}}.shot.off{{opacity:.07}}
+.strips .sd.cmp{{fill:var(--ink);r:10px}}.cmplab{{font:800 13px var(--mono);fill:var(--ink)}}
+.js .touch .td{{transform-box:fill-box;transform-origin:center;transform:scale(0);transition:transform .6s cubic-bezier(.2,.8,.2,1);transition-delay:calc((1 - var(--z)) * 1100ms)}}
+.js .touch.in .td{{transform:scale(1)}}
+.js .strips .sd{{opacity:0;transform:translateY(-24px);transition:opacity .4s,transform .5s cubic-bezier(.2,1.4,.4,1);transition-delay:calc(var(--i) * 28ms)}}
+.js .strips.in .sd{{opacity:1;transform:none}}
+.js .strips .sp{{transform-box:fill-box;transform-origin:center;transform:scale(0);transition:transform .5s cubic-bezier(.2,1.6,.4,1) .9s}}.js .strips.in .sp{{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){{.touch .td,.strips .sd,.strips .sp{{transform:none;opacity:1;transition:none}}.pt{{transition:none}}}}
+.hero-grid{{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(16px,3vw,40px);align-items:center}}
+.hero-img{{width:100%;height:auto;display:block;mix-blend-mode:multiply}}
+@media (max-width:760px){{.hero-grid{{grid-template-columns:1fr}}.hero-img{{max-width:420px;margin:0 auto;order:-1}}}}
 #tip{{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--paper);font:600 13px/1.35 var(--mono);padding:8px 10px;max-width:260px;opacity:0;transition:opacity .12s}}
 #tip.on{{opacity:1}}
 svg .tip,svg circle:has(title),svg g:has(title){{cursor:pointer}}
@@ -50,13 +76,15 @@ def body():
     return EXTRA_CSS + f"""
 <div class="strip"><div class="wrap label"><span>Transfer watch</span><span>Nico Paz · Como · 22</span><span>Serie A</span><span><b>On United's list if Bruno goes</b></span></div></div>
 <section class="hero"><div class="wrap">
+<div class="hero-grid"><div>
 <p class="kick label"><i>The Fix</i> Deep dive</p>
 <h1 class="head">Why Nico Paz is him</h1>
 <p class="human">A lovely left foot, a 10 who'll put a tackle in, and on United's list if Bruno goes. Two seasons of his numbers, checked against every attacking midfielder in Serie A.</p>
+</div><img class="hero-img" src="paz.jpg" width="900" height="1004" alt="Nico Paz, printed in halftone"></div>
 <div class="score">
 <div><span class="big"><em>1st</em><small>/22</small></span><p>Tackles per 90 among Serie A attacking midfielders, 2025/26</p></div>
 <div><span class="big">3rd<small>/22</small></span><p>Dribbles per 90 among the same 22 players</p></div>
-<div><span class="big">12<small>+</small>6</span><p>Serie A goals and assists in 2025/26, as Como finished fourth</p></div>
+<div><span class="big"><span data-count="12">12</span><small>+</small><span data-count="6">6</span></span><p>Serie A goals and assists in 2025/26, as Como finished fourth</p></div>
 </div></div></section>
 
 <section class="part"><div class="wrap"><div class="col">
@@ -73,7 +101,7 @@ def body():
 <section class="part"><div class="wrap">
 <div class="col"><div class="part-head"><span class="no">02</span><h2 class="head">Where he lives</h2></div>
 <p>Fàbregas calls him "an 8 or a 10", and in practice he roams. But the touch maps show a clear home: he drifts into the pocket right of centre, just inside the opposition half. Left-footed and on his inverted side, once he turns he's facing the whole pitch with every option open. He also drops into his own half to collect when Como are building.</p></div>
-<div class="two">{svg("touch-2526.svg")}{svg("touch-2627.svg")}</div>
+<div class="two touch">{svg("touch-2526.svg")}{svg("touch-2627.svg")}</div>
 <p class="fig-sub">Dot size = how often he's on the ball there. Black = his busiest zones. Ringed: his pocket.</p>
 <figcaption>Drawn from FotMob heatmap data (touch locations), Serie A 2025/26 (2,416 touches) and 2026/27 to 27 Nov (843 touches). Como attack upwards.</figcaption>
 </div></section>
@@ -84,16 +112,27 @@ def body():
 <figure><p class="fig-title">3 of his 5 goals from outside the box last season came from right of centre</p>
 <p class="fig-sub">Board: an illustration of the typical pattern. Black squares: his real 2025/26 Serie A goals from outside the box (hover or tap for detail).</p>
 {svg("board.svg")}
+<button id="replay" class="btn" type="button">Replay the move</button>
 <figcaption>Goal locations: FotMob shot data, Serie A 2025/26. The arrows are an illustration drawn from his touch and shot maps, not tracking data of a single goal.</figcaption></figure>
 </div></section>
 
 <section class="part"><div class="wrap">
 <div class="col"><div class="part-head"><span class="no">04</span><h2 class="head">He does both jobs</h2></div>
 <p>This is the one that makes him different. Most 10s either beat a man or win the ball. Paz does both, and he did it over a full season.</p></div>
-<figure><p class="fig-title">Every Serie A attacking midfielder, 2025/26: tackles against dribbles</p>
-<p class="fig-sub">Bigger dot = more minutes. Hover or tap any dot for the player and both numbers. Dashed lines: the middle of the 22.</p>
-{svg("scatter.svg")}
-<figcaption>FotMob league stats, Serie A 2025/26, filtered to attacking midfielders (22 players). Minutes are approximate: total tackles divided by tackles per 90.</figcaption></figure>
+<figure><p class="fig-title">Every Serie A attacking midfielder, 2025/26</p>
+<p class="fig-sub">Play with it. Drag the minutes slider to 1,000 and watch who's left in the corner. Swap what's on each axis, or pick a player to compare. Bigger dot = more minutes.</p>
+<div id="scatterLab" class="lab">
+<div class="ctrl">
+<label>Across <select name="x"><option value="t" selected>Tackles</option><option value="d">Dribbles</option><option value="f">Won in final third</option></select></label>
+<label>Up <select name="y"><option value="t">Tackles</option><option value="d" selected>Dribbles</option><option value="f">Won in final third</option></select></label>
+<label class="rng">Minutes played <input type="range" name="min" min="0" max="2800" step="100" value="0"><output class="mins">everyone</output></label>
+<label>Compare with <select class="compare"><option value="">nobody</option></select></label>
+</div>
+<p class="count label"></p>
+<div class="chart"></div>
+<noscript>{svg("scatter.svg")}</noscript>
+</div>
+<figcaption>FotMob league stats, Serie A 2025/26, filtered to attacking midfielders (22 players). Minutes are approximate: total tackles divided by tackles per 90. Shaded area: above the middle of the 22 on both measures.</figcaption></figure>
 <div class="col"><ul>
 <li><b>Only Messias sits near him</b>, and he did it in roughly 670 minutes against Paz's 2,882. Miretti matches his tackling in about 610 minutes but takes nobody on.</li>
 <li><b>It has held up this season:</b> 2.73 tackles and 2.10 dribbles per 90 in 2026/27, against 2.84 and 2.15 last season. That's a trait, not a hot streak.</li>
@@ -104,7 +143,8 @@ def body():
 <section class="part"><div class="wrap">
 <div class="col"><div class="part-head"><span class="no">05</span><h2 class="head">Where he ranks</h2></div>
 <p>Each line below is all 22 Serie A attacking midfielders last season. Elite at two things, middle of the pack at one, and we'll say so.</p></div>
-<figure>{svg("strips.svg")}
+<div class="ctrl"><label>Compare with <select class="compare"><option value="">nobody</option></select></label></div>
+<figure class="strips">{svg("strips.svg")}
 <figcaption>FotMob league stats, Serie A 2025/26, attacking midfielders. Grey dots: the other 21 (hover or tap for names). Stacked dots share a value.</figcaption></figure>
 <div class="col"><div class="scroll"><table>
 <thead><tr><th>Tackles per 90, attacking midfielders</th><th>Per 90</th><th>Total</th></tr></thead><tbody>
@@ -121,7 +161,14 @@ def body():
 <section class="part"><div class="wrap">
 <div class="col"><div class="part-head"><span class="no">06</span><h2 class="head">How he shoots</h2></div>
 <p>He shoots on sight. A lot of it is from range, and that drags his chance quality down, but when he hits the target he hits it clean. His shots on target were worth more than the chances they came from in both seasons, and his free kicks are a weapon.</p></div>
-<div class="two">{svg("shots-2526.svg")}{svg("shots-2627.svg")}</div>
+<div id="shotLab" class="lab">
+<div class="ctrl btns">
+<span class="grp"><button type="button" data-season="2526">2025/26</button><button type="button" data-season="2627">2026/27</button></span>
+<span class="grp"><button type="button" data-f="all">All</button><button type="button" data-f="goal">Goals</button><button type="button" data-f="in">Inside the box</button><button type="button" data-f="out">Outside the box</button><button type="button" data-f="fk">Free kicks</button></span>
+</div>
+<p class="count label"></p>
+<div class="maps"><div data-season="2526">{svg("shots-2526.svg")}</div><div data-season="2627" hidden>{svg("shots-2627.svg")}</div></div>
+</div>
 <p class="fig-sub">Circle size = chance quality (xG). Orange = goal. Penalties left off. Hover or tap any shot.</p>
 <div class="col"><div class="scroll"><table>
 <thead><tr><th>Serie A</th><th>2025/26</th><th>2026/27</th></tr></thead><tbody>
@@ -183,24 +230,5 @@ def body():
 </ul>
 </div></div></section>
 <div id="tip" role="status" aria-live="polite"></div>
-<script>
-(function(){{
-  var tip=document.getElementById('tip');
-  var els=document.querySelectorAll('svg title');
-  function show(t,x,y){{tip.textContent=t;tip.classList.add('on');
-    var w=tip.offsetWidth,h=tip.offsetHeight;var L=Math.min(window.innerWidth-w-8,x+14),T=y-h-14;if(T<8)T=y+18;
-    tip.style.left=L+'px';tip.style.top=T+'px';}}
-  function hide(){{tip.classList.remove('on');}}
-  els.forEach(function(ti){{
-    var el=ti.parentNode,txt=ti.textContent;el.setAttribute('data-tip',txt);el.setAttribute('tabindex','0');el.setAttribute('aria-label',txt);ti.remove();
-    el.addEventListener('pointerenter',function(e){{show(txt,e.clientX,e.clientY);}});
-    el.addEventListener('pointermove',function(e){{show(txt,e.clientX,e.clientY);}});
-    el.addEventListener('pointerleave',hide);
-    el.addEventListener('click',function(e){{show(txt,e.clientX,e.clientY);e.stopPropagation();}});
-    el.addEventListener('focus',function(){{var r=el.getBoundingClientRect();show(txt,r.right,r.top);}});
-    el.addEventListener('blur',hide);
-  }});
-  document.addEventListener('click',hide);window.addEventListener('scroll',hide,{{passive:true}});
-}})();
-</script>
+<script src="app.js" defer></script>
 """
