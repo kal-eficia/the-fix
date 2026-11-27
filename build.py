@@ -127,7 +127,7 @@ def page(title, desc, body, depth, club, path="", image=None):
 <nav class="label"><a href="{home}">Reports</a></nav></div></header>
 <main>{body}</main>
 <footer><div class="wrap"><img src="{assets}/logo/lockup-paper.png" alt="The Fix" width="169" height="44">
-<p>The Fix is football analysis by Kalid Nur: what's wrong, why, and the fix, told with the numbers. Event data is Opta's, read from public match centres; every source is linked on the page it supports.</p></div></footer>
+<p>The Fix is football analysis by Kalid Nur: what's wrong, why, and the fix, told with the numbers. Data comes from public sources (Opta via match centres, FotMob), named and linked on the page it supports.</p></div></footer>
 </body></html>
 """
     assert "—" not in html, "no em dashes"
