@@ -1,6 +1,6 @@
 """Prem Proven 10s: Cole Palmer and Morgan Gibbs-White, a transfer-watch deep dive (27 Nov 2026).
 Charts are drawn in the browser (site/prem-proven-10s/app.js) from reports/prem_proven/data.json,
-built from FotMob (Opta) Premier League data pulled on 27 Nov 2026."""
+built from FotMob (Opta) Premier League data pulled on 28 Nov 2026."""
 import json
 from pathlib import Path
 
@@ -74,6 +74,7 @@ def body():
 
 <section class="part"><div class="wrap"><div class="col">
 <div class="part-head"><span class="no">01</span><h2 class="head">The short version</h2></div>
+<p class="count">Updated 28 Nov: includes Gibbs-White's two goals in Forest's 3-2 win over Chelsea.</p>
 <p>Pochettino is now United's manager, Bruno's future is up in the air, and both of these have been linked with Old Trafford. They're very different bets. We compared each with every Premier League attacking midfielder over three seasons, with penalties stripped out.</p>
 <div class="verdict">
 <div><b class="pal">Palmer</b><p>The best numbers of any 10 in the league over three seasons, even without the penalties. It wasn't a one-season wonder, and Pochettino has already got the best out of him once. The worry is the last 18 months.</p></div>
@@ -116,15 +117,15 @@ def body():
 <p>The season after Pochettino left, Palmer actually got better chances: 13.4 non-penalty xG against 11.1. He scored fewer because he took fewer penalties and finished a bit colder. Goals minus xG swings from year to year; the chances are the steadier signal. Two elite seasons in a row passes our two-season test.</p></div>
 <figure><div class="chart grow" id="palBars"></div>
 <figcaption>{SRC}, Premier League season totals, from FotMob's shot maps. 2026/27 to 27 Nov.</figcaption></figure>
-<div class="col"><p>The worry is what came after: a groin problem that kept him out for much of autumn 2025, 1,965 league minutes last season, and middling numbers in 970 minutes this season. That's a small sample, so we wouldn't read much into it either way.</p></div>
+<div class="col"><p>The worry is what came after: a groin problem that kept him out for much of autumn 2025, 1,965 league minutes last season, and middling numbers in 1,060 minutes this season. That's a small sample, so we wouldn't read much into it either way.</p></div>
 </div></section>
 
 <section class="part"><div class="wrap">
 <div class="col"><div class="part-head"><span class="no">06</span><h2 class="head">Three different Gibbs-Whites</h2></div>
 <p>Gibbs-White's profile keeps changing. In 2023/24 he was a creator (10 assists). In 2025/26 he became a goalscorer. This season he's back to making chances, and he's 1st of 14 for big chances created.</p></div>
 <figure><div class="chart grow" id="mgwBars"></div>
-<figcaption>{SRC}, Premier League, per 90 minutes, penalties excluded. 2026/27: 900 minutes so far.</figcaption></figure>
-<div class="col"><p>Last season's 14 open-play goals came from 10.3 xG. Beating your xG by nearly four is a hot streak, and those rarely repeat: this season it's none from 2.0. He's never been top-quarter for scoring and creating in the same season.</p>
+<figcaption>{SRC}, Premier League, per 90 minutes, penalties excluded. 2026/27: 990 minutes so far.</figcaption></figure>
+<div class="col"><p>Last season's 14 open-play goals came from 10.3 xG. Beating your xG by nearly four is a hot streak, and those rarely repeat: this season it's one from 2.2. That one came on Friday night, when he scored twice (the other a penalty) in Forest's 3-2 win over Palmer's Chelsea, with the top FotMob rating on the pitch (8.9). He's never been top-quarter for scoring and creating in the same season.</p>
 <p>There is real context, though. Forest had 40.3%, 40.8% and 46.8% of the ball across these three seasons. Chelsea had 59.0%, 57.2% and 57.7%. Gibbs-White's numbers come with a lot less possession.</p></div>
 </div></section>
 
@@ -162,7 +163,7 @@ def body():
 <section class="part"><div class="wrap"><div class="col">
 <div class="part-head"><span class="no">10</span><h2 class="head">Method and sources</h2></div>
 <ul>
-<li><b>Data:</b> FotMob (Opta) season stats and shot maps for <a href="https://www.fotmob.com/players/1096353/cole-palmer">Palmer</a> and <a href="https://www.fotmob.com/players/789502/morgan-gibbs-white">Gibbs-White</a>, and FotMob's Premier League stats for every attacking midfielder, pulled 27 Nov 2026.</li>
+<li><b>Data:</b> FotMob (Opta) season stats and shot maps for <a href="https://www.fotmob.com/players/1096353/cole-palmer">Palmer</a> and <a href="https://www.fotmob.com/players/789502/morgan-gibbs-white">Gibbs-White</a>, and FotMob's Premier League stats for every attacking midfielder, pulled 28 Nov 2026, so Forest's 3-2 win over Chelsea on 27 Nov is included.</li>
 <li><b>Comparison set:</b> players whose main FotMob position is attacking midfielder, min 1,350 minutes a season (Opta's radar threshold): 14 in 2023/24, 15 in 2024/25, 19 in 2025/26. That's 48 player-seasons. For 2026/27 so far, min 500 minutes (14 players).</li>
 <li><b>Penalties out:</b> non-penalty xG and goals are counted from the shot maps. Chances created and xA include set pieces.</li>
 <li><b>Two-season rule:</b> something only counts as a trait if it shows up in two seasons. Goals minus xG is treated as mostly noise.</li>

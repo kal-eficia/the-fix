@@ -245,7 +245,7 @@
       var ln = { stroke: C.ink, "stroke-opacity": .5, "stroke-width": 2, fill: "none" };
       function rect(a, b, c, e) { var p = P(a, c), q = P(b, e); el("rect", Object.assign({ x: Math.min(p[0], q[0]), y: Math.min(p[1], q[1]), width: Math.abs(q[0] - p[0]), height: Math.abs(q[1] - p[1]) }, ln), s); }
       rect(105, 105 - L, 0, 68); rect(105, 88.5, 13.84, 54.16); rect(105, 99.5, 24.84, 43.16);
-      var gp = P(105, 30.34), gq = P(105, 37.66); el("rect", Object.assign({ x: gp[0], y: gp[1] - 14, width: gq[0] - gp[0], height: 14 }, ln), s);
+      var gp = P(105, 30.34), gq = P(105, 37.66); el("rect", Object.assign({ x: Math.min(gp[0], gq[0]), y: gp[1] - 14, width: Math.abs(gq[0] - gp[0]), height: 14 }, ln), s);
       var c = P(94, 34), r = 9.15 * k, by = P(88.5, 0)[1], dx = Math.sqrt(r * r - (by - c[1]) * (by - c[1]));
       el("path", Object.assign({ d: "M" + (c[0] - dx) + "," + by + " A" + r + "," + r + " 0 0 0 " + (c[0] + dx) + "," + by }, ln), s);
       var shots = d.shots.slice().sort(function (a, b) { return b[2] - a[2]; }), shown = 0, goals = 0, far = 0;
